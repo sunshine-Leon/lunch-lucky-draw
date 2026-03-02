@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>午餐隨機抽籤工具 | Lunch Lucky Draw</title>
+    <meta name="description" content="不知道午餐吃什麼？使用這個酷炫的隨機抽籤小工具，幫你快速做決定！">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>LUNCH DRAW</h1>
+        
+        <div class="input-group">
+            <input type="text" id="lunchInput" placeholder="想吃什麼？(例如：牛肉麵)" aria-label="新增午餐選項">
+            <button class="add-btn" id="addBtn">新增</button>
+        </div>
+
+        <div class="list-container" id="lunchList">
+            <!-- 項目將由 JS 動態產生 -->
+        </div>
+
+        <div class="action-area">
+            <button class="spin-btn" id="spinBtn">點擊抽籤</button>
+        </div>
+    </div>
+
+    <!-- 結果彈窗 -->
+    <div class="result-overlay" id="resultOverlay">
+        <div class="result-card">
+            <h2>今日首選</h2>
+            <div class="lunch-name" id="resultLabel">???</div>
+            <button class="close-btn" id="closeResultBtn">太棒了！</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
