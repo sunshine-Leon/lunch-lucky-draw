@@ -10,6 +10,8 @@
     --text-main: #ffffff;
     --text-dim: #a0a0c0;
     --glass-border: rgba(255, 255, 255, 0.1);
+    --gold: #ffcc00;
+    --gold-glow: rgba(255, 204, 0, 0.4);
 }
 
 * {
@@ -141,6 +143,49 @@ button.add-btn:hover {
     border-color: var(--glass-border);
 }
 
+.item-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.weight-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 4px 8px;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+.weight-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    transition: all 0.2s;
+}
+
+.weight-btn:hover {
+    color: var(--primary);
+}
+
+.weight-display {
+    font-size: 0.8rem;
+    font-weight: 600;
+    min-width: 20px;
+    color: var(--gold);
+}
+
 .delete-btn {
     background: transparent;
     border: none;
@@ -181,6 +226,49 @@ button.add-btn:hover {
 
 .spin-btn:active {
     transform: scale(0.98);
+}
+
+.slot-machine-container {
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.slot-reel {
+    transition: transform 0.1s linear;
+}
+
+.slot-item {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--gold-glow);
+}
+
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 101;
+}
+
+.quote {
+    font-style: italic;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .result-overlay {
