@@ -6,18 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultOverlay = document.getElementById('resultOverlay');
     const resultLabel = document.getElementById('resultLabel');
     const closeResultBtn = document.getElementById('closeResultBtn');
+    const modeBtns = document.querySelectorAll('.mode-btn');
 
     // 初始預設選項
     let lunches = ['牛肉麵', '吉野家', '麥當勞', '八方雲集', '健康便當', '壽司郎'];
 
-    // 隨機名稱列表 (動物)
-    const animalNames = [
-        '小胖企鵝', '傲嬌橘貓', '害羞水豚', '熱情柴犬', '冷靜貓頭鷹',
-        '活潑小兔子', '大胃王貓熊', '優雅長頸鹿', '聰明小狐狸', '呆萌小浣熊'
-    ];
-
     // 渲染列表
     function renderList() {
+        const lunches = data[currentMode];
         lunchList.innerHTML = '';
         lunches.forEach((item, index) => {
             const div = document.createElement('div');
@@ -35,28 +31,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 切換模式
+    function setMode(mode) {
+        currentMode = mode;
+
+        // 更新 UI 狀態
+        modeBtns.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.mode === mode);
+        });
+
+        // 更新 Input 提示
+        const modeText = mode === 'lunch' ? '午餐' : '晚餐';
+        lunchInput.placeholder = `想吃什麼${modeText}？(例如：${mode === 'lunch' ? '牛肉麵' : '大呼過癮'})`;
+
+        renderList();
+    }
+
     // 新增選項
     window.addLunch = () => {
         const value = lunchInput.value.trim();
         if (value) {
-            lunches.push(value);
+            data[currentMode].push(value);
             lunchInput.value = '';
             renderList();
-            // 滾動到底部
             lunchList.scrollTop = lunchList.scrollHeight;
         }
     };
 
     // 刪除選項
     window.removeLunch = (index) => {
-        lunches.splice(index, 1);
+        data[currentMode].splice(index, 1);
         renderList();
     };
 
     // 抽籤邏輯
     spinBtn.addEventListener('click', () => {
-        if (lunches.length === 0) {
-            alert('請先新增一些午餐選項！');
+        const currentList = data[currentMode];
+        if (currentList.length === 0) {
+            alert(`請先新增一些${currentMode === 'lunch' ? '午餐' : '晚餐'}選項！`);
             return;
         }
 
@@ -65,15 +77,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const fallbackName = animalNames[Math.floor(Math.random() * animalNames.length)];
         const finalName = enteredName || fallbackName;
 
-        // 開始動畫效果
         spinBtn.disabled = true;
         spinBtn.classList.add('spinning');
         spinBtn.textContent = '決定中...';
 
-        // 模擬隨機變動
         let count = 0;
         const interval = setInterval(() => {
-            const randomPick = lunches[Math.floor(Math.random() * lunches.length)];
+            const randomPick = currentList[Math.floor(Math.random() * currentList.length)];
             spinBtn.textContent = randomPick;
             count++;
 
@@ -87,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     spinBtn.textContent = '點擊抽籤';
 
                     // 顯示結果
-                    resultLabel.innerHTML = `<span style="font-size: 1.2rem; color: var(--secondary);">恭喜 ${finalName}！</span><br>今天首選：${finalPick}`;
+                    resultLabel.textContent = finalPick;
                     resultOverlay.style.display = 'flex';
                 }, 500);
             }
@@ -95,6 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 綁定事件
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => setMode(btn.dataset.mode));
+    });
+
     addBtn.addEventListener('click', () => addLunch());
     lunchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') addLunch();
@@ -104,13 +118,11 @@ document.addEventListener('DOMContentLoaded', () => {
         resultOverlay.style.display = 'none';
     });
 
-    // 點擊遮罩關閉
     resultOverlay.addEventListener('click', (e) => {
         if (e.target === resultOverlay) {
             resultOverlay.style.display = 'none';
         }
     });
 
-    // 初始渲染
     renderList();
 });
