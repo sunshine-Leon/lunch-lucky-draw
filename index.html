@@ -7,38 +7,85 @@
     <title>午餐隨機抽籤工具 | Lunch Lucky Draw</title>
     <meta name="description" content="不知道午餐吃什麼？使用這個酷炫的隨機抽籤小工具，幫你快速做決定！">
     <link rel="stylesheet" href="index.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <!-- Background Elements -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
     <div class="container">
-        <h1>LUNCH DRAW</h1>
+        <header>
+            <div class="logo-area">
+                <span class="logo-emoji">🍱</span>
+                <h1>LUNCH DRAW</h1>
+            </div>
+            <p class="subtitle">今天就交給命運來決定吧</p>
+        </header>
 
-        <div class="user-group">
-            <input type="text" id="userNameInput" placeholder="輸入你的姓名 (選填)" aria-label="使用者姓名">
-        </div>
+        <main>
+            <div class="user-group">
+                <div class="input-wrapper">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="userNameInput" placeholder="你的姓名" aria-label="使用者姓名">
+                </div>
+            </div>
 
-        <div class="input-group">
-            <input type="text" id="lunchInput" placeholder="想吃什麼？(例如：牛肉麵)" aria-label="新增午餐選項">
-            <button class="add-btn" id="addBtn">新增</button>
-        </div>
+            <div class="input-group">
+                <div class="input-wrapper">
+                    <span class="input-icon">➕</span>
+                    <input type="text" id="lunchInput" placeholder="想吃什麼？" aria-label="新增午餐選項">
+                </div>
+                <button class="add-btn" id="addBtn">
+                    <span>新增</span>
+                </button>
+            </div>
 
-        <div class="list-container" id="lunchList">
-            <!-- 項目將由 JS 動態產生 -->
-        </div>
+            <div class="slot-machine-display" id="slotDisplay">
+                <div class="slot-window">
+                    <div class="slot-reel" id="slotReel">
+                        <div class="slot-item">準備好了嗎？</div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="action-area">
-            <button class="spin-btn" id="spinBtn">點擊抽籤</button>
-        </div>
+            <div class="list-header">
+                <h3>目前的清單</h3>
+                <button class="clear-all-btn" id="clearAllBtn">清除全部</button>
+            </div>
+            <div class="list-container" id="lunchList">
+                <!-- 項目將由 JS 動態產生 -->
+            </div>
+
+            <div class="action-area">
+                <button class="spin-btn" id="spinBtn">
+                    <span class="btn-text">點擊抽籤</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+        </main>
     </div>
 
     <canvas id="confetti-canvas"></canvas>
 
     <div class="result-overlay" id="resultOverlay">
         <div class="result-card">
-            <h2>今日首選</h2>
-            <div class="lunch-name" id="resultLabel">???</div>
+            <div class="card-header">
+                <h2>今日首選</h2>
+                <div class="decoration line"></div>
+            </div>
+            <div class="lunch-name-wrapper">
+                <div class="lunch-name" id="resultLabel">???</div>
+            </div>
             <p class="quote" id="resultQuote"></p>
-            <button class="close-btn" id="closeResultBtn">太棒了！</button>
+            <button class="close-btn" id="closeResultBtn">
+                <span>太棒了，出發！</span>
+            </button>
         </div>
     </div>
 
